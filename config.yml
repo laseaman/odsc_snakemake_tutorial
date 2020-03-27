@@ -1,0 +1,17 @@
+BASE_DIR: ./
+
+# first is description to use when saving, second is start of name in sample folder
+SAMPLES:
+ S5_bound: 5_S5_L001_R
+ S6_control: 6_S6_L001_R
+
+# reference genome to use for alignment
+REF: ecoli
+REF_DIR: genomes/ecoli
+
+# Folder containing results folder for each sample (end with slash)
+SAVE_LOC: results/200327_ecoli
+# true to print more things out
+verbose: True
+# cores to use duirng alignment
+CORES: 4

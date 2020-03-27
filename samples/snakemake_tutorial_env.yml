@@ -1,0 +1,10 @@
+name: snakemake_tutorial
+channels:
+  - defaults
+  - conda-forge
+  - bioconda
+dependencies:
+  - snakemake
+  - fastqc
+prefix: /opt/anaconda3/envs/snakemake_tutorial
+
