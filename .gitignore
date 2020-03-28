@@ -3,4 +3,10 @@
 *.idea*
 *.snakemake/*
 fastqc/*
-log_files
+results/*
+log_files/*
+*bt2
+*.bam
+*.sam
+*.csv
+*.fai

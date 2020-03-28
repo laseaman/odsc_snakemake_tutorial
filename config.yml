@@ -2,16 +2,20 @@ BASE_DIR: ./
 
 # first is description to use when saving, second is start of name in sample folder
 SAMPLES:
- S5_bound: 5_S5_L001_R
- S6_control: 6_S6_L001_R
+ - S5_bound
+ - S6_control
 
+# what is between the sample number listed above and .fastq.gz?
+fastq_suffix:
+ - _L001_R1_001
+ - _L001_R2_001
 # reference genome to use for alignment
-REF: ecoli
-REF_DIR: genomes/ecoli
+REF: pseudomonas
+REF_DIR: genomes
 
 # Folder containing results folder for each sample (end with slash)
-SAVE_LOC: results/200327_ecoli
+SAVE_LOC: results/200327_pseudomonas
 # true to print more things out
 verbose: True
-# cores to use duirng alignment
+# cores to use during alignment
 CORES: 4

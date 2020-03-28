@@ -10,14 +10,15 @@ import utils
 ## Config and Helper Files                       ##
 ##-----------------------------------------------##
 configfile: "config.yml"
-
+print(config)
 ##-----------------------------------------------##
 ## Access Variables from Config File             ##
 ##-----------------------------------------------##
 # unpack the config file for later use
 BASE_DIR = config["BASE_DIR"]
 workdir: BASE_DIR
-PROBE_REF_GENOME = config["REF_DIR"]
+REF_DIR = config["REF_DIR"]
+GENOME_NAME = config["REF"]
 SAVE_LOC = config['SAVE_LOC']
 core = config["CORES"]
 
@@ -33,7 +34,7 @@ rule all:
         # check quality
        expand("fastqc/{full_name}_fastqc.zip", full_name = full_names),
         # alignment stats summary
-        # "results/probes_alignment_stats.csv",
+        "results/probes_alignment_stats.csv",
 
 rule run_fastqc:
     input:
@@ -54,17 +55,33 @@ rule run_fastqc:
         done
         """
 
-rule map_reads:
-    input:
-        R1="samples/{sample}_R1_001.fastq.gz",
-        R2="samples/{sample}_R2_001.fastq.gz"
+rule make_bowtie2_index:
     output:
-        sam="aligned_reads/{sample}_align_to_probes.sam",
+        bt2_index = '{REF_DIR}{REF_GENOME}.1.bt2'
     log:
-        "log_files/{sample}_align_to_probes_stats.log"
+        'log_files/{REF_DIR}{REF_GENOME}_make_bt2.log'
     shell:
         """
-        (bowtie2 -x {PROBE_REF_GENOME} -p {core} -1 {input.R1} -2 {input.R2} -S {output.sam}) 2> {log}
+        (bowtie2-build {REF_DIR}/{GENOME_NAME}.fa {REF_DIR}/{GENOME_NAME}) &> {log}
+        """
+
+
+rule map_reads:
+    input:
+        R1="samples/{sample}_L001_R1_001.fastq.gz",
+        R2="samples/{sample}_L001_R2_001.fastq.gz",
+        bt2_index = expand('{ref_dir}/{ref}.1.bt2', ref_dir=REF_DIR, ref=GENOME_NAME)
+    output:
+        sam=temp("aligned_reads/{sample}_aligned.sam"),
+        bam = "aligned_reads/{sample}_aligned.bam",
+        sorted = 'aligned_reads/{sample}_aligned_sorted.bam',
+    log:
+        "log_files/{sample}_aligned_stats.log"
+    shell:
+        """
+        (bowtie2 -x {REF_DIR}/{GENOME_NAME} -p {core} -1 {input.R1} -2 {input.R2} -S {output.sam}) 2> {log}
+        samtools view -bS {output.sam} > {output.bam}
+        samtools sort {output.bam} -o {output.sorted}
         """
 
 
@@ -72,13 +89,13 @@ rule map_reads:
 #    engineering maker
 rule parse_alignment_stats:
     input:
-        bams=expand('aligned_reads/{sample}_align_to_probes_sorted.bam', sample=IDS),
+        bams=expand('aligned_reads/{sample}_aligned_sorted.bam', sample=IDS),
     params:
         bam_dir=directory("aligned_reads/"),
         log_dir=directory("log_files/"),
-        extension='*align_to_probes_stats.log',
-        extension2='*_align_to_probes_sorted.bam',
-        out_fold='results/'
+        extension='*aligned_stats.log',
+        extension2='*_aligned_sorted.bam',
+        out_fold='results/',
     log:
         "log_files/parse_alignment_stats.log"
     output:
@@ -88,5 +105,5 @@ rule parse_alignment_stats:
         rpkm="results/probes_rpkm_per_chr.csv"
     shell:
         """
-        (python summarize_alignment.py {params.bam_dir} {params.log_dir} {params.out_fold} -d probes -lf {params.extension} -b {params.extension2} -v {verbose} -p {PROBE_REF_GENOME}) &>{log}
+        (python summarize_alignment.py {params.bam_dir} {params.log_dir} {params.out_fold} -d probes -lf {params.extension} -b {params.extension2} -v {verbose} -p {REF_DIR}/{GENOME_NAME}) &>{log}
         """
