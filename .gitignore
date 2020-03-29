@@ -1,0 +1,12 @@
+*.DS_Store*
+*.pyc
+*.idea*
+*.snakemake/*
+fastqc/*
+results/*
+log_files/*
+*bt2
+*.bam
+*.sam
+*.csv
+*.fai
