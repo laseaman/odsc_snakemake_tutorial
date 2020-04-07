@@ -8,6 +8,7 @@ conda activate snakemake_tutorial
 snakemake -s Snakefile.smk -n -r
 
 # # run the pipeline
+# this took just under 2 minutes to run on my 2019 macbook pro
 snakemake -s Snakefile.smk --cores 1
 
 # # saving an image of the rules to be run and their dependenceies (the Directed Acyclic Graph or DAG)

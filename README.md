@@ -17,19 +17,28 @@ to run the included code.
 I used conda, however it is possible to run everything without it 
 (directly pip installing programs). If you use conda
 
-#### create conda environment
+create conda environment
 ```shell script
 conda env create -f snakemake_tutorial_env.yml
 ```
 
-#### update existing conda environment
+update existing conda environment
 ```shell script
 conda env update --file snakemake_tutorial_env.yml  --prune
 ```
 
-#### update conda enviornment file: 
+update conda enviornment file: 
 ```shell script
 conda env export --from-history > snakemake_tutorial_env.yml
+```
+
+## runring the code
+- example commands including a dry run, full run, use of command line parameters, 
+and cluster submission is in example_commands.sh
+- to run the snakemake pipeline, first make sure the dependencies are installed and/or
+you have activated the conda environment then run:
+```shell script
+snakemake -s Snakefile.smk --cores 1
 ```
 
 ## Included data
