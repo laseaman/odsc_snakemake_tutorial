@@ -10,7 +10,7 @@ import utils
 ## Config and Helper Files                       ##
 ##-----------------------------------------------##
 configfile: "config.yml"
-print(config)
+
 ##-----------------------------------------------##
 ## Access Variables from Config File             ##
 ##-----------------------------------------------##
@@ -25,8 +25,6 @@ core = config["CORES"]
 # Get sample names (e.g. "S5")
 verbose = config['verbose']
 IDS, full_names = utils.load_samples(config, verbose=verbose)
-
-# TODO: add visualization if time
 
 
 rule all:
@@ -49,7 +47,8 @@ rule run_fastqc:
         """
         for file in {input}
         do
-            fastqc --outdir={params.folder} $file
+            echo "analyzing $file"
+            fastqc --outdir={params.folder} $file --quiet
         done
         """
 

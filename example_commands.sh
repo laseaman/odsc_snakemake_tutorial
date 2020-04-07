@@ -11,6 +11,8 @@ snakemake -s Snakefile.smk -n -r
 snakemake -s Snakefile.smk --cores 1
 
 # # saving an image of the rules to be run and their dependenceies (the Directed Acyclic Graph or DAG)
+# this will fail if there are any print statements outside of rules. As a result, change verbose to
+# False in the config before running it.
 snakemake --forceall -s Snakefile.smk --dag | dot -Tpdf > dag.pd
 
 # # run the pipeline - alternate version utalizing more of the command line options

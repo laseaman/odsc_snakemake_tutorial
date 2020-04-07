@@ -10,3 +10,4 @@ log_files/*
 *.sam
 *.csv
 *.fai
+*.pdf

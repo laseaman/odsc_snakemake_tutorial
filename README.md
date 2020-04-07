@@ -32,14 +32,14 @@ conda env update --file snakemake_tutorial_env.yml  --prune
 conda env export --from-history > snakemake_tutorial_env.yml
 ```
 
-## to cover
-- submitting to cluster
-- cluster.json
-- saving dag
-
-## Samples
-- S5 bead bound
-- S6 genomic dNA
+## Included data
+- pseudomonas.fa: a text file (fasta format), containg the genetic sequnce for 
+pseudomonas aeruginosa a bacteria that is commonly used for genetic studies.
+- S5_bead_L001_R1_001.fsatq.gz - gzipped fastq (text file for storing sequencind data) file
+- S5_bead_L001_R1_001.fsatq.gz - same as S5_bead_L001_R1_001.fsatq.gz but the data for read 2 in the
+     paired reads (background information: https://systemsbiology.columbia.edu/genome-sequencing-defining-your-experiment)
+- S6_control_L001_R1_001.fsatq.gz - same as above but for a control sample (read 1)
+- S6_control_L001_R1_001.fsatq.gz - same as above but for a control sample (read 2)
 
 ### trouble shooting
 if you get an error from samtools (mine was about libcrypto.1.0.0.dylib 
