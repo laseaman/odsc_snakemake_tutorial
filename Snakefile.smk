@@ -1,6 +1,6 @@
 # Purpose:  performs sequence alignment
-# Run:      conda activate snakemake-tutorial; snakemake -s Snakefile.smk
-# Dry-Run:      conda activate snakemake-env; snakemake -s Snakefile.smk -n
+# Run:      conda activate snakemake_tutorial; snakemake -s Snakefile.smk --cores 1
+# Dry-Run:      conda activate snakemake_tutorial; snakemake -s Snakefile.smk -n
 # Submission Example:
 # snakemake --snakefile Snakefile.smk -j 12 --cluster "sbatch -n 4 -c 1 -p short --mem 4G -t 0-4:00" --latency-wait 60
 
@@ -10,7 +10,7 @@ import utils
 ## Config and Helper Files                       ##
 ##-----------------------------------------------##
 configfile: "config.yml"
-print(config)
+
 ##-----------------------------------------------##
 ## Access Variables from Config File             ##
 ##-----------------------------------------------##
@@ -25,8 +25,6 @@ core = config["CORES"]
 # Get sample names (e.g. "S5")
 verbose = config['verbose']
 IDS, full_names = utils.load_samples(config, verbose=verbose)
-
-# TODO: add visualization if time
 
 
 rule all:
@@ -43,15 +41,14 @@ rule run_fastqc:
     output:
         expand("fastqc/{full_name}_fastqc.html", full_name = full_names),
         expand("fastqc/{full_name}_fastqc.zip", full_name = full_names)
-    log:
-        expand("log_files/fastqc/{full_name}.log", full_name = full_names)
     params:
         folder=directory("fastqc/")
     shell:
         """
         for file in {input}
         do
-            fastqc --outdir={params.folder} $file
+            echo "analyzing $file"
+            fastqc --outdir={params.folder} $file --quiet
         done
         """
 

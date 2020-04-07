@@ -11,6 +11,8 @@ def load_samples(config, verbose):
     all_fastq = list(chain.from_iterable((x + r1, x + r2) for x in samples))
 
     if verbose:
+        print('the config file as loaded: ')
+        print(config)
         print('descriptions to use when saving: ', samples)
         print('full file names: ', all_fastq)
     return samples, all_fastq
