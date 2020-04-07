@@ -1,6 +1,6 @@
 # Purpose:  performs sequence alignment
-# Run:      conda activate snakemake-tutorial; snakemake -s Snakefile.smk
-# Dry-Run:      conda activate snakemake-env; snakemake -s Snakefile.smk -n
+# Run:      conda activate snakemake_tutorial; snakemake -s Snakefile.smk --cores 1
+# Dry-Run:      conda activate snakemake_tutorial; snakemake -s Snakefile.smk -n
 # Submission Example:
 # snakemake --snakefile Snakefile.smk -j 12 --cluster "sbatch -n 4 -c 1 -p short --mem 4G -t 0-4:00" --latency-wait 60
 
@@ -43,8 +43,6 @@ rule run_fastqc:
     output:
         expand("fastqc/{full_name}_fastqc.html", full_name = full_names),
         expand("fastqc/{full_name}_fastqc.zip", full_name = full_names)
-    log:
-        expand("log_files/fastqc/{full_name}.log", full_name = full_names)
     params:
         folder=directory("fastqc/")
     shell:
