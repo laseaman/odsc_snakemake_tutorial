@@ -4,6 +4,9 @@ This is the github repository for use with the session
 how to use the workflow management system python. See the slides for more
 information about how to use it.
 
+More documentation and tutorials are available on the snakemake website: 
+https://snakemake.readthedocs.io/en/stable/ 
+
 ## What is included
 - Snakefile.smk includes the bulk of the code and is where the program is used.
 This program uses utils.py, summarize_alignment.py, and config.yml.
