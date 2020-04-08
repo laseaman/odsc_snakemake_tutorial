@@ -36,8 +36,7 @@ rule all:
 
 rule run_fastqc:
     input:
-       expand("samples/{full_name}"
-              ".fastq.gz", full_name = full_names)
+       expand("samples/{full_name}.fastq.gz", full_name = full_names)
     output:
         expand("fastqc/{full_name}_fastqc.html", full_name = full_names),
         expand("fastqc/{full_name}_fastqc.zip", full_name = full_names)

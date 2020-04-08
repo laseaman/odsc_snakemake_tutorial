@@ -14,7 +14,7 @@ REF: pseudomonas
 REF_DIR: genomes
 
 # Folder containing results folder for each sample (end with slash)
-SAVE_LOC: results/200327_pseudomonas
+SAVE_LOC: results/pseudomonas
 # true to print more things out
 verbose: True
 # cores to use during alignment
