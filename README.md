@@ -35,7 +35,7 @@ update conda enviornment file:
 conda env export --from-history > snakemake_tutorial_env.yml
 ```
 
-## runring the code
+## runing the code
 - example commands including a dry run, full run, use of command line parameters, 
 and cluster submission is in example_commands.sh
 - to run the snakemake pipeline, first make sure the dependencies are installed and/or
