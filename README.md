@@ -1,6 +1,6 @@
 # Snakemake tutorial
 This is the github repository for use with the session 
-"Pipelining in Python: using Snakemake for biologicla applications". It shows 
+"Pipelining in Python: using Snakemake for biological applications". It shows 
 how to use the workflow management system python. See the slides for more
 information about how to use it.
 
@@ -10,7 +10,7 @@ https://snakemake.readthedocs.io/en/stable/
 ## What is included
 - Snakefile.smk includes the bulk of the code and is where the program is used.
 This program uses utils.py, summarize_alignment.py, and config.yml.
-- snakemake_tutorial_env.yml can be used to set up a conda enviornment with all
+- snakemake_tutorial_env.yml can be used to set up a conda environment with all
 the needed programs. These programs can also be pip installed (instead of conda)
 if that is your preference. More information below
 - genomes and samples folders contain (relatively) small amounts of data needed 
@@ -30,7 +30,7 @@ update existing conda environment
 conda env update --file snakemake_tutorial_env.yml  --prune
 ```
 
-update conda enviornment file: 
+update conda environment file: 
 ```shell script
 conda env export --from-history > snakemake_tutorial_env.yml
 ```
@@ -47,7 +47,7 @@ snakemake -s Snakefile.smk --cores 1
 ## Included data
 - pseudomonas.fa: a text file (fasta format), containg the genetic sequnce for 
 pseudomonas aeruginosa a bacteria that is commonly used for genetic studies.
-- S5_bead_L001_R1_001.fsatq.gz - gzipped fastq (text file for storing sequencind data) file
+- S5_bead_L001_R1_001.fsatq.gz - gzipped fastq (text file for storing sequencing data) file
 - S5_bead_L001_R1_001.fsatq.gz - same as S5_bead_L001_R1_001.fsatq.gz but the data for read 2 in the
      paired reads (background information: https://systemsbiology.columbia.edu/genome-sequencing-defining-your-experiment)
 - S6_control_L001_R1_001.fsatq.gz - same as above but for a control sample (read 1)
