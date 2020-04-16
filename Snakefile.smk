@@ -53,9 +53,9 @@ rule run_fastqc:
 
 rule make_bowtie2_index:
     output:
-        bt2_index = '{REF_DIR}{REF_GENOME}.1.bt2'
+        bt2_index = '{REF_DIR}/{REF_GENOME}.1.bt2'
     log:
-        'log_files/{REF_DIR}{REF_GENOME}_make_bt2.log'
+        'log_files/{REF_GENOME}_{REF_DIR}_make_bt2.log'
     shell:
         """
         (bowtie2-build {REF_DIR}/{GENOME_NAME}.fa {REF_DIR}/{GENOME_NAME}) &> {log}
