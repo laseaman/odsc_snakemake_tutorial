@@ -2,7 +2,7 @@
 # Run:      conda activate snakemake_tutorial; snakemake -s Snakefile.smk --cores 1
 # Dry-Run:      conda activate snakemake_tutorial; snakemake -s Snakefile.smk -n
 # Submission Example:
-# snakemake --snakefile Snakefile.smk -j 12 --cluster "sbatch -n 4 -c 1 -p short --mem 4G -t 0-4:00" --latency-wait 60
+# snakemake --snakefile Snakefile.smk -j 12 --cluster "sbatch -n 4 -c 1 -p short --mem 4G -t 0-4:00" --latency-wait 60"
 
 import utils
 
@@ -26,6 +26,7 @@ core = config["CORES"]
 verbose = config['verbose']
 IDS, full_names = utils.load_samples(config, verbose=verbose)
 
+localrules: make_bowtie2_index, parse_alignment_stats
 
 rule all:
     input:
@@ -73,6 +74,8 @@ rule map_reads:
         sorted = 'aligned_reads/{sample}_aligned_sorted.bam',
     log:
         "log_files/{sample}_aligned_stats.log"
+    benchmark:
+        "log_files/benchmark_{sample}_map_reads.tsv"
     shell:
         """
         (bowtie2 -x {REF_DIR}/{GENOME_NAME} -p {core} -1 {input.R1} -2 {input.R2} -S {output.sam}) 2> {log}

@@ -1,6 +1,6 @@
 # Snakemake tutorial
 This is the github repository for use with the session 
-"Pipelining in Python: using Snakemake for biological applications". It shows 
+"Pipelining in Python: using Snakemake for biological applications!". It shows 
 how to use the workflow management system python. See the slides for more
 information about how to use it.
 

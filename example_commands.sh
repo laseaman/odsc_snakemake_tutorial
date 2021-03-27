@@ -14,12 +14,12 @@ snakemake --forceall -s Snakefile.smk --dag | dot -Tpdf > dag.pdf
 
 # # run the pipeline
 # this took just under 2 minutes to run on my 2019 macbook pro
-snakemake -s Snakefile.smk --cores 1
+snakemake -s Snakefile.smk --cores 1 -r
 
-# # run the pipeline - alternate version utalizing more of the command line options
+# # run the pipeline - alternate version utilizing more of the command line options
 # # --latency-wait 60: if at the end of any rule some of the files are missing, wait and check again
 # #          after 60 seconds instead of immediately failing.
-# # -k: keep running independant jobs after one fails (default is to submit no new jobs after a failure)
+# # -k: keep running independent jobs after one fails (default is to submit no new jobs after a failure)
 # # -R map_reads: fore rerun all map_read rule executions and all downstream jobs
 # snakemake -s Snakefile.smk --cores 1 --latency-wait 60 -k -R map_reads
 
